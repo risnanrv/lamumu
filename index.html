@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lamumu gMoo Clicker</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background-image: url('bg.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        margin-top: -140px;
+    }
+    #game {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        background: transparent;
+        padding-right: 60px;
+    }
+    .navbar-title {
+        font-size: 40px;
+        font-weight: bold;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        letter-spacing: 0.5px;
+        line-height: 1;
+        user-select: none;
+        font-family: Tahoma, Geneva, sans-serif;
+
+    }
+    .social-icons {
+        display: flex;
+        gap: 18px;
+        margin-right: 50px;
+    }
+    .social-link {
+        width: 44px;
+        height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.35);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+        backdrop-filter: blur(6px);
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        text-decoration: none;
+    }
+    .social-link:hover {
+        transform: translateY(-2px) scale(1.05);
+        background: rgba(255,255,255,0.25);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    .social-icon {
+        width: 22px;
+        height: 22px;
+        filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.25));
+        pointer-events: none;
+    }
+
+    /* Footer Credit */
+.credit {
+    position: fixed;
+    bottom: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(30,30,30,0.4));
+    backdrop-filter: blur(8px);
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-family: Tahoma, Geneva, sans-serif;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.credit:hover {
+    background: linear-gradient(135deg, rgba(50,50,50,0.8), rgba(20,20,20,0.6));
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.5);
+}
+
+.credit a {
+    display: flex; /* Ensure items are aligned together */
+    align-items: center; /* Vertical center */
+    gap: 10px; /* Space between text & icon */
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.credit-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: white;
+    padding: 2px;
+    transition: transform 0.2s ease;
+}
+
+.credit-icon:hover {
+    transform: rotate(8deg) scale(1.08);
+}
+
+
+    /* Existing styles remain unchanged below */
+    .mascot {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        width: 540px;
+        top: 133px;
+        transform-origin: bottom center;
+        filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+    }
+    .mascot:hover {
+        transform: translateX(-50%) scale(1.05);
+        filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4));
+    }
+    .mascot:active {
+        transform: translateX(-50%) scale(0.95);
+    }
+    .mascot.wink {
+        animation: wink 0.4s ease;
+    }
+    .mascot.jump {
+        animation: jump 0.6s cubic-bezier(0.5, 1.5, 0.5, 1);
+    }
+    @keyframes wink {
+        0%, 100% { transform: translateX(-50%) scaleY(1); }
+        50% { transform: translateX(-50%) scaleY(0.8); }
+    }
+    @keyframes jump {
+        0%, 100% { transform: translateX(-50%); }
+        30% { transform: translateX(-50%) translateY(-30px); }
+        60% { transform: translateX(-50%) translateY(10px); }
+    }
+     .gmoo {
+        position: absolute;
+        color: black;
+        font-weight: bold;
+        padding: 8px 15px;
+        border-radius: 20px;
+        background:white;
+        backdrop-filter: blur(5px);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        pointer-events: none;
+        z-index: 10;
+        animation: floatToSky 2.5s ease-out forwards;
+        will-change: transform, opacity;
+        text-align: center;
+        min-width: 80px;
+        transform-origin: center;
+    }
+    .gmoo::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        padding: 2px;
+        background: linear-gradient(45deg, rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+    }
+   .gmoo.rare {
+        background: white;
+        color: black;
+        font-size: 36px !important;
+        padding: 10px 20px;
+    }
+    @keyframes floatToSky {
+        0% {
+            transform: 
+                translate(var(--startX), var(--startY))
+                scale(0.8);
+            opacity: 0;
+        }
+        20% {
+            opacity: 1;
+            transform: 
+                translate(var(--startX), calc(var(--startY) - 30px))
+                scale(1);
+        }
+        80% {
+            opacity: 0.8;
+            transform: 
+                translate(calc(var(--startX) * 1.5), calc(var(--startY) - 300px))
+                scale(1.1);
+        }
+        100% {
+            transform: 
+                translate(calc(var(--startX) * 2), calc(var(--startY) - 500px))
+                scale(0.9);
+            opacity: 0;
+        }
+    }
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #f00;
+        opacity: 0;
+        z-index: 5;
+        animation: confettiFall 3s linear forwards;
+    }
+    @keyframes confettiFall {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(500px) rotate(360deg);
+            opacity: 0;
+        }
+    }
+    .emission-point {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: white;
+        border-radius: 50%;
+        filter: blur(2px);
+        z-index: 5;
+        animation: emissionGlow 0.5s ease-out forwards;
+    }
+    @keyframes emissionGlow {
+        0% { transform: scale(0.5); opacity: 1; }
+        100% { transform: scale(2); opacity: 0; }
+    }
+    .social-icons {
+  display: flex;
+  gap: 12px;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 15px;
+  border-radius:50%;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  transition: opacity 0.2s ease;
+}
+
+.social-btn:hover {
+  opacity: 0.85;
+}
+
+/* Discord style */
+.social-btn.discord {
+  background-color: #5865F2; /* Official Discord blue */
+}
+
+/* X (Twitter) style */
+.social-btn.x-twitter {
+  background-color: #000000; /* Black */
+}
+
+
+</style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="navbar-title">Lamumu</div>
+   <div class="social-icons">
+  <a class="social-btn discord" href="https://discord.gg/lamumudotxyz" target="_blank" rel="noopener noreferrer">
+    <i class="fa-brands fa-discord"></i> 
+  </a>
+  <a class="social-btn x-twitter" href="https://x.com/lamumudotxyz" target="_blank" rel="noopener noreferrer">
+    <i class="fa-brands fa-x-twitter"></i> 
+  </a>
+</div>
+
+
+</nav>
+
+<div id="game">
+    <img src="lamumu.png" class="mascot" id="mascot" alt="Lamumu Mascot">
+</div>
+
+<!-- Footer Credit -->
+<div class="credit">
+    <a href="https://x.com/thekaizencoder" target="_blank" rel="noopener noreferrer">
+        <span>Made by Kaizen</span>
+        <img src="pfp.png" alt="Profile" class="credit-icon">
+    </a>
+</div>
+
+<script>
+const mascot = document.getElementById("mascot");
+const game = document.getElementById("game");
+let clickCount = 0;
+
+// Preload audio
+const mooSound = new Audio();
+mooSound.src = "moo.mp3";
+mooSound.preload = "auto";
+
+// Array of possible gMoo texts
+const gMooTexts = [
+    "gMoo", "gmOO", "gMooo", "Moo!", "🐮", "gMoo", 
+    "MooMoo", "gMoo!", "gMoo!!", "gMooooo"
+];
+
+// Emission points around mascot
+const emissionPoints = [
+    { x: 0.3, y: 0.7 },   // bottom left
+    { x: 0.7, y: 0.7 },   // bottom right
+    { x: 0.2, y: 0.5 },   // mid left
+    { x: 0.8, y: 0.5 },   // mid right
+    { x: 0.5, y: 0.3 }    // top center
+];
+
+mascot.addEventListener("click", (e) => {
+    clickCount++;
+    
+    // Play sound
+    mooSound.currentTime = 0;
+    mooSound.play();
+    
+    // Mascot animations
+    mascot.classList.add('jump');
+    setTimeout(() => mascot.classList.remove('jump'), 600);
+    
+    // Random wink (20% chance)
+    if (Math.random() < 0.2) {
+        mascot.classList.add('wink');
+        setTimeout(() => mascot.classList.remove('wink'), 400);
+    }
+    
+    // Create gMoo text from random emission point
+    createGMoo();
+    
+    // Always create confetti on click
+    createConfetti();
+});
+
+function createGMoo() {
+    const isRare = Math.random() < 0.05; // 5% chance for rare
+    const gmoo = document.createElement("div");
+    gmoo.className = `gmoo ${isRare ? 'rare' : ''}`;
+    
+    // Select random text or use special for rare
+    gmoo.innerText = isRare ? "gmOOOoo " : 
+                    clickCount % 15 === 0 ? "gMoo!" : 
+                    gMooTexts[Math.floor(Math.random() * gMooTexts.length)];
+    
+    // Random properties
+    const fontSize = Math.floor(Math.random() * 12) + 24; // 24–36px
+    gmoo.style.fontSize = fontSize + "px";
+    
+    // Get mascot dimensions
+    const mascotRect = mascot.getBoundingClientRect();
+    const mascotCenterX = mascotRect.left + mascotRect.width / 2;
+    const mascotCenterY = mascotRect.top + mascotRect.height / 2;
+    
+    // Select random emission point
+    const point = emissionPoints[Math.floor(Math.random() * emissionPoints.length)];
+    const emitX = mascotRect.width * (point.x - 0.5);
+    const emitY = mascotRect.height * (point.y - 0.5);
+    
+    // Create emission glow effect
+    const glow = document.createElement("div");
+    glow.className = "emission-point";
+    glow.style.left = `${mascotCenterX + emitX}px`;
+    glow.style.top = `${mascotCenterY + emitY}px`;
+    game.appendChild(glow);
+    setTimeout(() => glow.remove(), 500);
+    
+    // Set animation starting point
+    const startX = emitX * 0.5 + 'px';
+    const startY = emitY * 0.5 + 'px';
+    
+    gmoo.style.setProperty('--startX', startX);
+    gmoo.style.setProperty('--startY', startY);
+    
+    // Position at emission point
+    gmoo.style.left = `${mascotCenterX + emitX}px`;
+    gmoo.style.top = `${mascotCenterY + emitY}px`;
+    
+    game.appendChild(gmoo);
+    
+    // Remove after animation completes
+    setTimeout(() => gmoo.remove(), 2500);
+}
+
+function createConfetti() {
+    for (let i = 0; i < 20; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        
+        // Random properties
+        const colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff'];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const size = Math.random() * 10 + 5;
+        const left = Math.random() * window.innerWidth;
+        const delay = Math.random() * 0.5;
+        const duration = Math.random() * 2 + 2;
+        
+        confetti.style.backgroundColor = color;
+        confetti.style.width = `${size}px`;
+        confetti.style.height = `${size}px`;
+        confetti.style.left = `${left}px`;
+        confetti.style.top = `-20px`;
+        confetti.style.animationDelay = `${delay}s`;
+        confetti.style.animationDuration = `${duration}s`;
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        
+        game.appendChild(confetti);
+        
+        // Remove after animation
+        setTimeout(() => confetti.remove(), duration * 1000);
+    }
+}
+
+// Random winks when idle
+setInterval(() => {
+    if (Math.random() < 0.005) {
+        mascot.classList.add('wink');
+        setTimeout(() => mascot.classList.remove('wink'), 400);
+    }
+}, 1000);
+
+// Random jumps when idle
+setInterval(() => {
+    if (Math.random() < 0.003) {
+        mascot.classList.add('jump');
+        setTimeout(() => mascot.classList.remove('jump'), 600);
+    }
+}, 2000);
+</script>
+</body>
+</html>
