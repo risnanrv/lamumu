@@ -18,12 +18,12 @@
         display: flex;
         justify-content: center;
         align-items: flex-end;
-        font-family: 'Comic Sans MS', cursive, sans-serif;
         margin-top: -140px;
         -webkit-tap-highlight-color: transparent;
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         user-select: none;
+          font-family: Tahoma, Geneva, sans-serif;
     }
     #game {
         position: relative;
@@ -150,22 +150,26 @@
         filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4));
     }
     .mascot:active {
-        transform: translateX(-50%) scale(0.95);
+        transform: translateX(-50%) scale(0.92);
+        filter: drop-shadow(0 3px 8px rgba(0,0,0,0.25));
     }
     .mascot.wink {
-        animation: wink 0.4s ease;
+        animation: wink 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .mascot.jump {
-        animation: jump 0.6s cubic-bezier(0.5, 1.5, 0.5, 1);
+    .mascot.click {
+        animation: click 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     @keyframes wink {
-        0%, 100% { transform: translateX(-50%) scaleY(1); }
-        50% { transform: translateX(-50%) scaleY(0.8); }
+        0% { transform: translateX(-50%) scaleY(1); }
+        25% { transform: translateX(-50%) scaleY(0.85); }
+        50% { transform: translateX(-50%) scaleY(0.75); }
+        75% { transform: translateX(-50%) scaleY(0.85); }
+        100% { transform: translateX(-50%) scaleY(1); }
     }
-    @keyframes jump {
-        0%, 100% { transform: translateX(-50%); }
-        30% { transform: translateX(-50%) translateY(-30px); }
-        60% { transform: translateX(-50%) translateY(10px); }
+    @keyframes click {
+        0% { transform: translateX(-50%) translateY(0) scale(1); }
+        50% { transform: translateX(-50%) translateY(-15px) scale(1.1); }
+        100% { transform: translateX(-50%) translateY(0) scale(1); }
     }
     .gmoo {
         position: absolute;
@@ -184,6 +188,7 @@
         text-align: center;
         min-width: 80px;
         transform-origin: center;
+          font-family: Tahoma, Geneva, sans-serif;
     }
     .gmoo::before {
         content: '';
@@ -196,12 +201,14 @@
         -webkit-mask-composite: xor;
         mask-composite: exclude;
         pointer-events: none;
+          font-family: Tahoma, Geneva, sans-serif;
     }
     .gmoo.rare {
         background: white;
         color: black;
         font-size: 36px !important;
         padding: 10px 20px;
+          font-family: Tahoma, Geneva, sans-serif;
     }
     @keyframes floatToSky {
         0% {
@@ -405,14 +412,16 @@ mascot.addEventListener("click", (e) => {
     mooSound.currentTime = 0;
     mooSound.play();
     
-    // Mascot animations
-    mascot.classList.add('jump');
-    setTimeout(() => mascot.classList.remove('jump'), 600);
+    // Mascot click animation
+    mascot.classList.add('click');
+    setTimeout(() => mascot.classList.remove('click'), 400);
     
-    // Random wink (20% chance)
-    if (Math.random() < 0.2) {
-        mascot.classList.add('wink');
-        setTimeout(() => mascot.classList.remove('wink'), 400);
+    // Random wink (25% chance)
+    if (Math.random() < 0.25) {
+        setTimeout(() => {
+            mascot.classList.add('wink');
+            setTimeout(() => mascot.classList.remove('wink'), 600);
+        }, 100);
     }
     
     // Create gMoo text from random emission point
@@ -504,15 +513,15 @@ function createConfetti() {
 setInterval(() => {
     if (Math.random() < 0.005) {
         mascot.classList.add('wink');
-        setTimeout(() => mascot.classList.remove('wink'), 400);
+        setTimeout(() => mascot.classList.remove('wink'), 600);
     }
 }, 1000);
 
-// Random jumps when idle
+// Random winks when idle (no other movements)
 setInterval(() => {
-    if (Math.random() < 0.003) {
-        mascot.classList.add('jump');
-        setTimeout(() => mascot.classList.remove('jump'), 600);
+    if (Math.random() < 0.005) {
+        mascot.classList.add('wink');
+        setTimeout(() => mascot.classList.remove('wink'), 1000);
     }
 }, 2000);
 
