@@ -20,6 +20,10 @@
         align-items: flex-end;
         font-family: 'Comic Sans MS', cursive, sans-serif;
         margin-top: -140px;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
     }
     #game {
         position: relative;
@@ -50,7 +54,6 @@
         line-height: 1;
         user-select: none;
         font-family: Tahoma, Geneva, sans-serif;
-
     }
     .social-icons {
         display: flex;
@@ -84,52 +87,51 @@
     }
 
     /* Footer Credit */
-.credit {
-    position: fixed;
-    bottom: 12px;
-    right: 12px;
-    background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(30,30,30,0.4));
-    backdrop-filter: blur(8px);
-    padding: 8px 14px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-family: Tahoma, Geneva, sans-serif;
-    color: white;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-}
+    .credit {
+        position: fixed;
+        bottom: 12px;
+        right: 12px;
+        background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(30,30,30,0.4));
+        backdrop-filter: blur(8px);
+        padding: 8px 14px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-family: Tahoma, Geneva, sans-serif;
+        color: white;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+    }
 
-.credit:hover {
-    background: linear-gradient(135deg, rgba(50,50,50,0.8), rgba(20,20,20,0.6));
-    transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.5);
-}
+    .credit:hover {
+        background: linear-gradient(135deg, rgba(50,50,50,0.8), rgba(20,20,20,0.6));
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.5);
+    }
 
-.credit a {
-    display: flex; /* Ensure items are aligned together */
-    align-items: center; /* Vertical center */
-    gap: 10px; /* Space between text & icon */
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
+    .credit a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
 
-.credit-icon {
-    width: 20px;
-    height: 20px;
-    border-radius: 4px;
-    background: white;
-    padding: 2px;
-    transition: transform 0.2s ease;
-}
+    .credit-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        background: white;
+        padding: 2px;
+        transition: transform 0.2s ease;
+    }
 
-.credit-icon:hover {
-    transform: rotate(8deg) scale(1.08);
-}
+    .credit-icon:hover {
+        transform: rotate(8deg) scale(1.08);
+    }
 
-
-    /* Existing styles remain unchanged below */
+    /* Mascot Styles */
     .mascot {
         position: absolute;
         left: 50%;
@@ -137,9 +139,11 @@
         cursor: pointer;
         transition: all 0.2s ease;
         width: 540px;
+        max-width: 90%;
         top: 133px;
         transform-origin: bottom center;
         filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+        -webkit-user-drag: none;
     }
     .mascot:hover {
         transform: translateX(-50%) scale(1.05);
@@ -163,7 +167,7 @@
         30% { transform: translateX(-50%) translateY(-30px); }
         60% { transform: translateX(-50%) translateY(10px); }
     }
-     .gmoo {
+    .gmoo {
         position: absolute;
         color: black;
         font-weight: bold;
@@ -193,7 +197,7 @@
         mask-composite: exclude;
         pointer-events: none;
     }
-   .gmoo.rare {
+    .gmoo.rare {
         background: white;
         color: black;
         font-size: 36px !important;
@@ -259,54 +263,95 @@
         100% { transform: scale(2); opacity: 0; }
     }
     .social-icons {
-  display: flex;
-  gap: 12px;
-}
+        display: flex;
+        gap: 12px;
+    }
 
-.social-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 15px 15px;
-  border-radius:50%;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-  color: white;
-  transition: opacity 0.2s ease;
-}
+    .social-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 15px 15px;
+        border-radius:50%;
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+        transition: opacity 0.2s ease;
+    }
 
-.social-btn:hover {
-  opacity: 0.85;
-}
+    .social-btn:hover {
+        opacity: 0.85;
+    }
 
-/* Discord style */
-.social-btn.discord {
-  background-color: #5865F2; /* Official Discord blue */
-}
+    /* Discord style */
+    .social-btn.discord {
+        background-color: #5865F2;
+    }
 
-/* X (Twitter) style */
-.social-btn.x-twitter {
-  background-color: #000000; /* Black */
-}
+    /* X (Twitter) style */
+    .social-btn.x-twitter {
+        background-color: #000000;
+    }
 
+    /* Mobile Styles */
+    @media only screen and (max-width: 768px) {
+        body {
+            margin-top: -80px;
+            align-items: center;
+        }
+        
+        .navbar {
+            padding: 15px 20px;
+            padding-right: 20px;
+        }
+        
+        .navbar-title {
+            font-size: 32px;
+        }
+        
+        .social-icons {
+            display: none;
+        }
+        
+        .mascot {
+            width: 80vw;
+            max-width: 400px;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+        
+        .credit {
+            font-size: 12px;
+            padding: 6px 10px;
+        }
+        
+        .credit-icon {
+            width: 16px;
+            height: 16px;
+        }
+    }
 
+    /* Prevent context menu on long press */
+    .mascot {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
 </style>
 </head>
 <body>
 <!-- Navbar -->
 <nav class="navbar">
     <div class="navbar-title">Lamumu</div>
-   <div class="social-icons">
-  <a class="social-btn discord" href="https://discord.gg/lamumudotxyz" target="_blank" rel="noopener noreferrer">
-    <i class="fa-brands fa-discord"></i> 
-  </a>
-  <a class="social-btn x-twitter" href="https://x.com/lamumudotxyz" target="_blank" rel="noopener noreferrer">
-    <i class="fa-brands fa-x-twitter"></i> 
-  </a>
-</div>
-
-
+    <div class="social-icons">
+        <a class="social-btn discord" href="https://discord.gg/lamumudotxyz" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-discord"></i> 
+        </a>
+        <a class="social-btn x-twitter" href="https://x.com/lamumudotxyz" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-x-twitter"></i> 
+        </a>
+    </div>
 </nav>
 
 <div id="game">
@@ -345,6 +390,12 @@ const emissionPoints = [
     { x: 0.8, y: 0.5 },   // mid right
     { x: 0.5, y: 0.3 }    // top center
 ];
+
+// Prevent context menu on long press
+mascot.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    return false;
+});
 
 mascot.addEventListener("click", (e) => {
     clickCount++;
@@ -463,6 +514,20 @@ setInterval(() => {
         setTimeout(() => mascot.classList.remove('jump'), 600);
     }
 }, 2000);
+
+// Handle window resize
+window.addEventListener('resize', function() {
+    // Center mascot on resize
+    const mascotRect = mascot.getBoundingClientRect();
+    mascot.style.left = '50%';
+    if (window.innerWidth <= 768) {
+        mascot.style.top = '50%';
+        mascot.style.transform = 'translateX(-50%) translateY(-50%)';
+    } else {
+        mascot.style.top = '133px';
+        mascot.style.transform = 'translateX(-50%)';
+    }
+});
 </script>
 </body>
 </html>
