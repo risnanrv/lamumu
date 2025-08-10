@@ -298,7 +298,7 @@
     @media only screen and (max-width: 768px) {
         body {
             margin-top: -80px;
-            align-items: center;
+            align-items: flex-end;
         }
         
         .navbar {
@@ -317,8 +317,9 @@
         .mascot {
             width: 80vw;
             max-width: 400px;
-            top: 50%;
-            transform: translateX(-50%) translateY(-50%);
+            top: auto;
+            bottom: 40px;
+            transform: translateX(-50%);
         }
         
         .credit {
@@ -521,10 +522,12 @@ window.addEventListener('resize', function() {
     const mascotRect = mascot.getBoundingClientRect();
     mascot.style.left = '50%';
     if (window.innerWidth <= 768) {
-        mascot.style.top = '50%';
-        mascot.style.transform = 'translateX(-50%) translateY(-50%)';
+        mascot.style.top = 'auto';
+        mascot.style.bottom = '40px';
+        mascot.style.transform = 'translateX(-50%)';
     } else {
         mascot.style.top = '133px';
+        mascot.style.bottom = 'auto';
         mascot.style.transform = 'translateX(-50%)';
     }
 });
